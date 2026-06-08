@@ -1,0 +1,71 @@
+.table-action {
+    width: 5%;
+}
+.table-no {
+    width: 4%;
+}
+.fa-edit {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+.action_th {
+    min-width: 80px !important;
+}
+.ballot-actions {
+    float: right;
+}
+.modal-title {
+    font-weight: bold;
+}
+.mini-title {
+    font-size: 16px;
+    margin-left: 25px;
+}
+.date-input {
+    margin-right: 42px;
+}
+.langModalBody{
+    height: 800px;
+    overflow-y: auto;
+}
+.select_name {
+    margin-top: 6px;
+}
+.select_options .col-md-4{
+    padding-left: 0px;
+}
+.select_options .col-md-4 label{
+    padding-right: 0px;
+    padding-left: 0px;
+}
+.select_options .col-md-4 .col-sm-9{
+    padding-right: 0px;
+    padding-left: 0px;
+}
+.select_options .col-md-4 .col-sm-10{
+    padding-right: 0px;
+    padding-left: 0px;
+}
+.page-header.navbar .page-logo .logo-default {
+  margin: 3px 0 1px 0;
+  width: 100px;
+  height: 40px;
+}
+.modal-body {
+    margin-right: 20px;
+}
+.changed_sel {
+    width: 15px; 
+    height: 15px;
+}
+.changed_county {
+    width: 16px; 
+    height: 16px;
+}
+.changed_lang {
+    width: 16px; 
+    height: 16px;
+}
+.label_des {
+    margin-top: 6px;
+}
