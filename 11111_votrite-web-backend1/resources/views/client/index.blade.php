@@ -78,6 +78,7 @@
 <script src="{{asset('/assets/jquery-validation/js/jquery.validate.min.js')}}" type="text/javascript"></script>
 <script type="text/javascript" src="{{asset('/assets/select2/select2.min.js')}}"></script>
 <script src="{{asset('/assets/admin/pages/scripts/login.js')}}" type="text/javascript"></script>
+<script src="{{asset('/assets/js/accessibility.js')}}" type="text/javascript"></script>
 <script>
 jQuery(document).ready(function() {     
   Login.init();

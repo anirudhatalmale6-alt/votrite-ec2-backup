@@ -28,6 +28,7 @@
                 </div>
                 <div class="guide-desc-body">
                     <h4>You can see result that you have done by now. Read each name and review each selection carefully. When you are done, press the "Cast my vote" button. If you wish you can edit the voting result by clicking race names.</h4>
+                    <h4 class="a11y-instructions" style="display:none; margin-top:10px; padding:10px; background:#e8eaf6; border-left:4px solid #1a237e;">Keyboard mode: Press S to hear all your selections read aloud. J to cast your vote. D to go back. Escape to cancel ballot. L for help.</h4>
                 </div>
             </div>
             <div class="col-md-6 col-xs-12">

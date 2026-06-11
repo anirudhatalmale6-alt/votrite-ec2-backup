@@ -25,8 +25,10 @@
 
 </head>
 <body class="page-header-fixed">
-
+<a href="#main-content" class="sr-only" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;" onfocus="this.style.position='static';this.style.width='auto';this.style.height='auto';" onblur="this.style.position='absolute';this.style.width='1px';this.style.height='1px';">Skip to main content</a>
+<div id="main-content" role="main">
 @yield('content')
+</div>
 
 <script src="{{asset('/assets/jquery.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('/assets/jquery-migrate.min.js')}}" type="text/javascript"></script>
@@ -46,6 +48,7 @@
 <script src="{{asset('/assets/admin/layout/scripts/demo.js')}}" type="text/javascript"></script>
 <script src="{{asset('/assets/admin/layout/scripts/metronic.js')}}" type="text/javascript"></script>
 <script src="{{asset('/assets/admin/pages/scripts/login.js')}}" type="text/javascript"></script>
+<script src="{{asset('/assets/js/accessibility.js')}}" type="text/javascript"></script>
 <script>
     $(function(){
         $('.page-content-fullwidth').css({ height: $(window).innerHeight()-$('.page-footer-voter').outerHeight()-$('.page-header-voter').outerHeight()-$('.guide-desc-header').height()});
