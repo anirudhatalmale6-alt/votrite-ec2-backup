@@ -35,6 +35,9 @@
             <div class="col-md-4">
 
             </div>
+            <div class="col-md-4" style="margin-bottom:10px;">
+                <h4 class="a11y-instructions" style="display:none; padding:10px; background:#e8eaf6; border-left:4px solid #1a237e;">Keyboard Commands: Up/Down Arrow = move between languages | F = select language | J = proceed to voting | L = hear full help | F3 = exit keyboard mode</h4>
+            </div>
             <form class="col-md-4 scroller ballot-voter" role="form" method="get" action="{{ url('client/viewcand') }}" style="height: 700px;">
                 <!-- @csrf -->
                 <input type="hidden" name="ballot_id" value="{{$ballot_id}}">

@@ -28,7 +28,7 @@
                 </div>
                 <div class="guide-desc-body">
                     <h4>To vote, touch a "YES" or "NO" or "FOR" or "AGAINST" button. A check mark will appear to confirm your selection. To unselect the answer, touch it again. When you are done, touch the "Next" button to continue to the next screen. Touch the "Skip" button to skip.</h4>
-                    <h4 class="a11y-instructions" style="display:none; margin-top:10px; padding:10px; background:#e8eaf6; border-left:4px solid #1a237e;">Keyboard mode: Up/Down arrows to navigate options. F to select. K to deselect. J for next page. D to go back. S to hear your selections. L for help.</h4>
+                    <h4 class="a11y-instructions" style="display:none; margin-top:10px; padding:10px; background:#e8eaf6; border-left:4px solid #1a237e;">Keyboard Commands: Up/Down Arrow = move between Yes/No/For/Against options | F = select answer | K = deselect answer | J = next page | D = go back | S = read your selections aloud | L = hear full help | Escape = cancel | F3 = exit keyboard mode</h4>
                 </div>
             </div>
             <div class="col-md-8 col-xs-12">

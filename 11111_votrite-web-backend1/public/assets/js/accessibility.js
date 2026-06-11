@@ -47,7 +47,7 @@ var VotRiteA11y = (function () {
         banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99999;' +
             'background:#1a237e;color:#fff;text-align:center;padding:8px 16px;font-size:16px;' +
             'font-weight:bold;letter-spacing:1px;';
-        banner.textContent = 'KEYBOARD ACCESSIBILITY MODE ACTIVE — Press F3 for help';
+        banner.textContent = 'KEYBOARD MODE ACTIVE — F=Select  J=Next  D=Back  K=Deselect  S=Read Selections  L=Help  F3=Off';
         document.body.insertBefore(banner, document.body.firstChild);
         // Show keyboard instruction panels
         var instrPanels = document.querySelectorAll('.a11y-instructions');
@@ -278,30 +278,71 @@ var VotRiteA11y = (function () {
         }
     }
 
-    function readInstructions() {
-        var helpText = 'VotRite Keyboard Accessibility Help. ' +
-            'F key: Select or confirm the highlighted candidate. ' +
-            'K key: Deselect the highlighted candidate. ' +
-            'Up and Down arrows: Move between candidates. ' +
-            'J key: Go to next page. ' +
-            'D key: Go back one page. ' +
-            'S key: Read your current selections aloud. ' +
-            'L key: Read these instructions again. ' +
-            'Space bar: Activate the focused button. ' +
-            'Escape: Cancel ballot or close dialog. ' +
-            'F3: Toggle accessibility mode on or off.';
+    function getPageType() {
+        var url = window.location.pathname;
+        if (url.indexOf('/client/ballot') !== -1) return 'ballot';
+        if (url.indexOf('/client/lang') !== -1 || url.indexOf('/client/viewcand') !== -1) return 'language';
+        if (url.indexOf('/client/race') !== -1 || url.indexOf('/client/viewcand') !== -1) return 'race';
+        if (url.indexOf('/client/prop') !== -1) return 'proposition';
+        if (url.indexOf('/client/mass') !== -1) return 'mass_proposition';
+        if (url.indexOf('/client/review') !== -1) return 'review';
+        if (url.indexOf('/client/cast') !== -1) return 'cast';
+        if (url.indexOf('/client') !== -1) return 'login';
+        return 'unknown';
+    }
 
-        // Also read page-specific instructions
-        var guideBody = document.querySelector('.guide-desc-body h4');
-        if (guideBody) {
-            helpText += ' Page instructions: ' + guideBody.textContent.trim();
+    function readInstructions() {
+        var pageType = getPageType();
+
+        var helpText = 'VotRite Keyboard Help. ';
+
+        helpText += 'Navigation keys, anchored on the home row bumps on F and J. ';
+        helpText += 'Up Arrow: Move to the previous item. ';
+        helpText += 'Down Arrow: Move to the next item. ';
+        helpText += 'F key: Select or confirm the highlighted item. ';
+        helpText += 'K key: Deselect or decrease the highlighted item. ';
+        helpText += 'J key: Proceed to the next page. ';
+        helpText += 'D key: Go back to the previous page. ';
+        helpText += 'S key: Read all your current selections aloud. ';
+        helpText += 'L key: Repeat these instructions. ';
+        helpText += 'Spacebar: Activate the currently focused button. ';
+        helpText += 'Escape key: Cancel your ballot, or close a dialog. ';
+        helpText += 'F3 key: Turn accessibility mode on or off. ';
+
+        // Page-specific help
+        if (pageType === 'ballot') {
+            helpText += 'You are on the ballot selection page. Use Up and Down arrows to choose a ballot. Press F to select it. Press J to proceed.';
+        } else if (pageType === 'language') {
+            helpText += 'You are on the language selection page. Use Up and Down arrows to choose a language. Press F to select it. Press J to proceed.';
+        } else if (pageType === 'login') {
+            helpText += 'You are on the login page. Tab to the pincode field, type your pincode, then Tab to the Login button and press Enter or Spacebar.';
+        } else if (pageType === 'race') {
+            var hasSpinners = document.querySelectorAll('.spinner').length > 0;
+            if (hasSpinners) {
+                helpText += 'You are on a ranked choice race page. Use Up and Down arrows to move between candidates. Press F to increase a candidate value. Press K to decrease it. Press J when done to go to the next race. Press D to go back.';
+            } else {
+                helpText += 'You are on a candidate selection page. Use Up and Down arrows to move between candidates. Press F to select a candidate. A check mark will confirm your choice. Press K to deselect. Press J when done to go to the next race. Press D to go back.';
+            }
+            var maxVotes = document.getElementById('maxvotes');
+            if (maxVotes) {
+                helpText += ' You have ' + maxVotes.textContent + ' choices remaining.';
+            }
+        } else if (pageType === 'proposition' || pageType === 'mass_proposition') {
+            helpText += 'You are on a proposition page. Use Up and Down arrows to move between Yes, No, For, or Against options. Press F to select your answer. Press K to deselect. Press J to proceed to the next item. Press D to go back.';
+        } else if (pageType === 'review') {
+            helpText += 'You are on the review page. Press S to hear all your selections read aloud. Press J to cast your vote. Press D to go back and make changes. Press Escape to cancel your ballot entirely.';
+        } else if (pageType === 'cast') {
+            helpText += 'Your vote has been cast successfully. You will be redirected shortly.';
         }
+
         speak(helpText);
     }
 
     function announcePageLoad() {
         if (!enabled) return;
+        var pageType = getPageType();
         var title = '';
+
         var voterTitle = document.querySelector('.voter-title h2');
         if (voterTitle) {
             title = voterTitle.textContent.trim();
@@ -310,29 +351,46 @@ var VotRiteA11y = (function () {
         if (subtitle) {
             title += '. ' + subtitle.textContent.trim();
         }
-        // Page-specific header
-        var guideHeader = document.querySelector('.guide-desc-header h2');
-        if (guideHeader) {
-            title += '. ' + guideHeader.textContent.trim();
+
+        // Page-specific announcements
+        if (pageType === 'ballot') {
+            title += '. Choose a ballot using Up and Down arrows, then press F to select and J to proceed.';
+        } else if (pageType === 'language') {
+            title += '. Choose a language using Up and Down arrows, then press F to select and J to proceed.';
+        } else if (pageType === 'login') {
+            title = 'VotRite Login. Tab to the pincode field and enter your code. Then Tab to Login and press Enter.';
+        } else if (pageType === 'race') {
+            var guideHeader = document.querySelector('.guide-desc-header h2');
+            if (guideHeader) {
+                title += '. ' + guideHeader.textContent.trim();
+            }
+            var maxVotes = document.getElementById('maxvotes');
+            if (maxVotes) {
+                title += '. You have ' + maxVotes.textContent + ' choices remaining.';
+            }
+            var hasSpinners = document.querySelectorAll('.spinner').length > 0;
+            if (hasSpinners) {
+                title += ' Use Up and Down arrows to navigate candidates. F to increase, K to decrease. J for next, D to go back.';
+            } else {
+                title += ' Use Up and Down arrows to navigate candidates. F to select, K to deselect. J for next, D to go back.';
+            }
+        } else if (pageType === 'proposition' || pageType === 'mass_proposition') {
+            title += '. Use Up and Down arrows to navigate options. F to select, K to deselect. J for next, D to go back.';
+        } else if (pageType === 'review') {
+            title += '. Review your choices. Press S to hear all selections. J to cast your vote. D to go back. Escape to cancel.';
+        } else if (pageType === 'cast') {
+            title = 'Your vote has been successfully cast. Thank you for voting.';
         }
-        // Remaining choices
-        var maxVotes = document.getElementById('maxvotes');
-        if (maxVotes) {
-            title += '. You have ' + maxVotes.textContent + ' choices remaining.';
-        }
-        // Progress
+
+        // Progress counter
         var progress = document.querySelector('.page-footer-voter h4');
-        if (progress) {
-            title += '. ' + progress.textContent.trim() + '.';
+        if (progress && pageType !== 'review' && pageType !== 'cast') {
+            title += ' ' + progress.textContent.trim() + '.';
         }
 
-        if (!title) {
-            var castText = document.querySelector('.cast-text');
-            if (castText) title = castText.textContent.trim();
-        }
-        if (!title) title = 'VotRite page loaded.';
+        if (!title) title = 'VotRite page loaded. Press L for help.';
 
-        title += ' Press L for help. Use Up and Down arrows to navigate candidates.';
+        title += ' Press L for full instructions.';
         speak(title);
     }
 
@@ -343,8 +401,12 @@ var VotRiteA11y = (function () {
         showA11yBanner();
         collectFocusables();
         focusIndex = -1;
-        speak('Keyboard accessibility mode activated. Press L for instructions. ' +
-              'Use Up and Down arrows to navigate. F to select. J for next page. D to go back.');
+        speak('Keyboard accessibility mode is now on. ' +
+              'Your hands should rest on the home row. The F and J keys have raised bumps you can feel. ' +
+              'F selects a candidate. J goes to the next page. D goes back. K deselects. ' +
+              'Up and Down arrows move between candidates. ' +
+              'S reads your selections. L reads full help. ' +
+              'Press F3 at any time to turn this mode off.');
         // Auto-announce page after help finishes
         setTimeout(function () {
             if (enabled) announcePageLoad();

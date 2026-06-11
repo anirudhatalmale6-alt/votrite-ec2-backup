@@ -21,6 +21,9 @@
             <div class="col-md-4">
 
             </div>
+            <div class="col-md-4" style="margin-bottom:10px;">
+                <h4 class="a11y-instructions" style="display:none; padding:10px; background:#e8eaf6; border-left:4px solid #1a237e;">Keyboard Commands: Up/Down Arrow = move between ballots | F = select ballot | J = proceed to next step | L = hear full help | F3 = exit keyboard mode</h4>
+            </div>
             <form class="col-md-4 scroller ballot-voter" role="form" method="get" action="{{ url('/client') }}" style="height: 60%;">
                 @if($ballots != null)
                 @foreach($ballots->data as $key=>$value)

@@ -30,10 +30,10 @@
                 <div class="guide-desc-body">
                     @if($races[0]->race_type != "R")
                     <h4>To vote, touch a name. A check mark will appear to confirm your selection. To unselect the name, touch it again. When you are done, touch the "Next" button to continue to next screen. Touch the "Skip" button to skip. Touch the "Write-In Candidate" button to add other candidates.</h4>
-                    <h4 class="a11y-instructions" style="display:none; margin-top:10px; padding:10px; background:#e8eaf6; border-left:4px solid #1a237e;">Keyboard mode: Up/Down arrows to navigate candidates. F to select. K to deselect. J for next page. D to go back. S to hear your selections. L for help.</h4>
+                    <h4 class="a11y-instructions" style="display:none; margin-top:10px; padding:10px; background:#e8eaf6; border-left:4px solid #1a237e;">Keyboard Commands: Up/Down Arrow = move between candidates | F = select candidate | K = deselect candidate | J = next page | D = go back | S = read your selections aloud | L = hear full help | Escape = cancel | F3 = exit keyboard mode</h4>
                     @else
                     <h4>To vote, touch a plus or minus button. A changing value will appear to confirm your selection. Please input other value for each candidate. When you are done, touch the "Next" button to continue to next screen. Touch the "Skip" button to skip. Touch the "Write-In Candidate" button to add other candidates.</h4>
-                    <h4 class="a11y-instructions" style="display:none; margin-top:10px; padding:10px; background:#e8eaf6; border-left:4px solid #1a237e;">Keyboard mode: Up/Down arrows to navigate. F to increase value. K to decrease value. J for next page. D to go back. S to hear your selections. L for help.</h4>
+                    <h4 class="a11y-instructions" style="display:none; margin-top:10px; padding:10px; background:#e8eaf6; border-left:4px solid #1a237e;">Keyboard Commands: Up/Down Arrow = move between candidates | F = increase vote value | K = decrease vote value | J = next page | D = go back | S = read your selections aloud | L = hear full help | Escape = cancel | F3 = exit keyboard mode</h4>
                     @endif
                 </div>
             </div>
